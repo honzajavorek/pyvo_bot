@@ -13,4 +13,4 @@ jobs:
           command: stack --no-terminal install
       - run:
           name: Run
-          command: pyvobot Honza
+          command: pyvobot-exe Honza

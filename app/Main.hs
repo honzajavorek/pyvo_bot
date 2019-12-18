@@ -1,5 +1,9 @@
-import System.Environment (getArgs)
+module Main where
 
+import System.Environment (getArgs)
+import Lib
+
+main :: IO ()
 main = do
     name:_ <- getArgs
-    putStrLn ("Hello " ++ name ++ "!")
+    someFunc name
