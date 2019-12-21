@@ -1,6 +1,6 @@
 name:                pyvobot
 version:             0.1.0.0
-github:              "honzajavorek/pyvobot"
+github:              "honzajavorek/pyvo_bot"
 license:             MIT
 author:              "Honza Javorek"
 maintainer:          "mail@honzajavorek.cz"
@@ -9,7 +9,6 @@ copyright:           "2019 Honza Javorek"
 extra-source-files:
 - LICENSE
 - README.md
-- ChangeLog.md
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -18,16 +17,21 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/honzajavorek/pyvobot#readme>
+description:         Please see the README on GitHub at <https://github.com/honzajavorek/pyvo_bot#readme>
 
 dependencies:
 - base >= 4.7 && < 5
+- wreq
+- lens
+- text
+- time
+- bytestring
 
 library:
   source-dirs: src
 
 executables:
-  pyvobot-exe:
+  pyvo_bot:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -38,7 +42,7 @@ executables:
     - pyvobot
 
 tests:
-  pyvobot-test:
+  pyvo_bot-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:

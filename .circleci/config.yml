@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  send:
     docker:
       - image: fpco/stack-build:lts
     steps:
@@ -13,4 +13,19 @@ jobs:
           command: stack --no-terminal install
       - run:
           name: Run
-          command: pyvobot-exe Honza
+          command: pyvo_bot Honza  # needs TELEGRAM_API_KEY set
+workflows:
+  version: 2
+  default:
+    jobs:
+      - send
+  daily:
+    jobs:
+      - send
+    triggers:
+      - schedule:
+          cron: "0 10 * * *"
+          filters:
+            branches:
+              only:
+                - master
