@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Calendar
+module Events
     ( parse
     ) where
 

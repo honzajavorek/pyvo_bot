@@ -4,7 +4,7 @@ module Main where
 
 import System.Environment (getArgs)
 
-import Calendar (parse)
+import Events (parse)
 import Fetch (fetch)
 
 main :: IO ()
