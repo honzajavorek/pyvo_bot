@@ -12,8 +12,9 @@ jobs:
           name: Install executable
           command: stack --no-terminal install
       - run:
+          # requires TELEGRAM_API_KEY and TELEGRAM_CHAT_ID set
           name: Run
-          command: pyvo_bot Honza  # needs TELEGRAM_API_KEY set
+          command: pyvo_bot 'https://pyvo.cz/api/series/praha-pyvo.ics'
 workflows:
   version: 2
   default:

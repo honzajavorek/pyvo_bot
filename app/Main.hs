@@ -2,17 +2,36 @@
 
 module Main where
 
-import System.Environment (getArgs)
+import System.Environment (getArgs, getEnv)
+import Data.Time (getCurrentTime, utctDay)
+import qualified Data.Text as Text
 
-import Events (parse)
+import Events (parse, next, remaining)
 import Fetch (fetch)
+import Format (formatEvent, formatRemainingDays)
+import Send (telegram)
 
 main :: IO ()
 main = do
-    ics <- fetch "https://pyvo.cz/api/series/praha-pyvo.ics"
-    putStrLn . show $ parse ics
+    url:_ <- getArgs
+    ics <- fetch url
+    time <- getCurrentTime
 
-    -- name:_ <- getArgs
-    -- someFunc name
+    let today = utctDay time
+        event = next today $ parse ics
+        eventStr = formatEvent event
+        days = remaining today event
+        maybeDaysStr = formatRemainingDays days
 
--- https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat}&parse_mode=Markdown&text={message}
+    putStrLn ("Next Pyvo: " ++ eventStr)
+    putStrLn ("Days remaining: " ++ (show days))
+
+    if maybeDaysStr == Nothing
+        then return ()
+        else do
+            let (Just daysStr) = maybeDaysStr
+            putStrLn daysStr
+
+            apiKey <- getEnv "TELEGRAM_API_KEY"
+            chatId <- getEnv "TELEGRAM_CHAT_ID"
+            telegram apiKey chatId (daysStr ++ " " ++ eventStr)
